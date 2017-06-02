@@ -17,7 +17,7 @@ class ChartsViewController: UIViewController, CBCentralManagerDelegate, CBPeriph
     // Bluetooth Variables
     var manager : CBCentralManager!
     var connectedPeripheral : CBPeripheral!
-    var deviceType : DeviceType!
+    var deviceType : DeviceType?
     
     enum DeviceType {
         case alpha, beta
@@ -131,6 +131,9 @@ class ChartsViewController: UIViewController, CBCentralManagerDelegate, CBPeriph
         } else if characteristic.uuid == betaEegCharacteristicUUID {
             eegChartView.addToGraph(packet: characteristic.value!, date: Date(), range: 200)
             accelChartView.betaAddToGraph(packet: characteristic.value!, date: Date(), range: (200))
+            if isRecording {
+                tempAccelPackets.append(characteristic.value!)
+            }
         }
     }
     
@@ -139,6 +142,11 @@ class ChartsViewController: UIViewController, CBCentralManagerDelegate, CBPeriph
     // MARK: - Graphing
     
     func didSelectDevice(device: CBPeripheral){
+        eegChartView.xAxis.resetCustomAxisMin()
+        pulseOxChartView.xAxis.resetCustomAxisMin()
+        accelChartView.xAxis.resetCustomAxisMin()
+        
+        eegChartView.initChart()
         pulseOxChartView.initChart()
         accelChartView.initChart()
 
@@ -154,6 +162,8 @@ class ChartsViewController: UIViewController, CBCentralManagerDelegate, CBPeriph
         
         tempAccelPackets = []
         tempAccelPacketTimestamps = []
+        
+        // FIXME: What happens when a new device is selected during a recording?
     }
     
     func didSelectAlphaReading(reading: AlphaReading){
@@ -170,9 +180,11 @@ class ChartsViewController: UIViewController, CBCentralManagerDelegate, CBPeriph
         
         chartState = .fileGraphing
         
+        eegChartView.xAxis.resetCustomAxisMin()
         pulseOxChartView.xAxis.resetCustomAxisMin()
         accelChartView.xAxis.resetCustomAxisMin()
         
+        eegChartView.initChart()
         pulseOxChartView.initChart()
         accelChartView.initChart()
         
@@ -242,7 +254,14 @@ class ChartsViewController: UIViewController, CBCentralManagerDelegate, CBPeriph
             
         } else {
             sender.isSelected = false
-            persistAlphaReading()
+            // FIXME: need the record button to appear AFTER device type is set
+            switch deviceType! {
+            case .alpha:
+                persistAlphaReading()
+                break
+            case .beta:
+                break
+            }
         }
     }
     
