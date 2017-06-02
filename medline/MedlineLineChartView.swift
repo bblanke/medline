@@ -10,7 +10,12 @@ import UIKit
 import Charts
 
 class MedlineLineChartView: LineChartView {
+    
+    weak var axisFormatDelegate : IAxisValueFormatter?
+
     override func awakeFromNib() {
+        axisFormatDelegate = self
+        xAxis.valueFormatter = axisFormatDelegate
         xAxis.labelPosition = .bottom
         xAxis.drawAxisLineEnabled = false
         xAxis.drawGridLinesEnabled = false
@@ -23,7 +28,14 @@ class MedlineLineChartView: LineChartView {
         leftAxis.drawGridLinesEnabled = false
         chartDescription?.enabled = false
         drawBordersEnabled = false
+    }
+}
 
+extension MedlineLineChartView : IAxisValueFormatter{
+    public func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "mm:ss.SS"
+        return dateFormatter.string(from: Date(timeIntervalSince1970: value))
     }
 }
 

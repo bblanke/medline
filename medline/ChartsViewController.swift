@@ -66,7 +66,6 @@ class ChartsViewController: UIViewController, CBCentralManagerDelegate, CBPeriph
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupButtons()
 
         manager = CBCentralManager(delegate: self, queue: nil)
         
@@ -106,10 +105,12 @@ class ChartsViewController: UIViewController, CBCentralManagerDelegate, CBPeriph
                         deviceType = .beta
                         pulseOxChartView.isHidden = true
                         eegChartView.isHidden = false
+                        setupButtons()
                     } else {
                         deviceType = .alpha
                         eegChartView.isHidden = true
                         pulseOxChartView.isHidden = false
+                        setupButtons()
                     }
                     print("[DEBUG]: Subscribing to Data Stream for characteristic \(characteristic.uuid.uuidString) notify \(characteristic.properties.contains(.notify))")
                 }
@@ -182,6 +183,8 @@ class ChartsViewController: UIViewController, CBCentralManagerDelegate, CBPeriph
         }
         
         chartState = .fileGraphing
+        deviceType = .alpha
+        setupButtons()
         
         eegChartView.xAxis.resetCustomAxisMin()
         pulseOxChartView.xAxis.resetCustomAxisMin()
@@ -222,6 +225,8 @@ class ChartsViewController: UIViewController, CBCentralManagerDelegate, CBPeriph
         }
         
         chartState = .fileGraphing
+        deviceType = .beta
+        setupButtons()
         
         eegChartView.xAxis.resetCustomAxisMin()
         pulseOxChartView.xAxis.resetCustomAxisMin()
@@ -245,25 +250,45 @@ class ChartsViewController: UIViewController, CBCentralManagerDelegate, CBPeriph
     
     // MARK: - Graph Actions
     func setupButtons(){
-        let recordButton = ToggleButton(title: "RECORD", color: .warn)
-        recordButton.addTarget(self, action: #selector(ChartsViewController.recordClicked), for: .touchUpInside)
+        var buttonArray : [UIBarButtonItem] = []
         
-        let holdButton = ToggleButton(title: "HOLD", color: .primary)
-        holdButton.addTarget(self, action: #selector(ChartsViewController.holdClicked), for: .touchUpInside)
+        if chartState == .bluetoothGraphing {
+            let recordButton = ToggleButton(title: "RECORD", color: .warn)
+            recordButton.addTarget(self, action: #selector(ChartsViewController.recordClicked), for: .touchUpInside)
+            
+            let holdButton = ToggleButton(title: "HOLD", color: .primary)
+            holdButton.addTarget(self, action: #selector(ChartsViewController.holdClicked), for: .touchUpInside)
+            
+            let recordButtonItem = UIBarButtonItem(customView: recordButton)
+            let holdButtonItem = UIBarButtonItem(customView: holdButton)
+            
+            buttonArray.append(recordButtonItem)
+            buttonArray.append(holdButtonItem)
+        }
         
-        let recordButtonItem = UIBarButtonItem(customView: recordButton)
-        let holdButtonItem = UIBarButtonItem(customView: holdButton)
         let flexibleSpaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        buttonArray.append(flexibleSpaceItem)
         
-        var buttonArray = [recordButtonItem, holdButtonItem, flexibleSpaceItem]
+        if deviceType == .alpha {
+            for (index, set) in pulseOxChartView.chartDataSets.enumerated() {
+                let button = ToggleButton(title: set.label!, color: set.colors.first!)
+                button.addTarget(pulseOxChartView, action: #selector(PulseOxChartView.toggleDataSet), for: .touchUpInside)
+                button.tag = index
+                button.isSelected = true
+                let barButton = UIBarButtonItem(customView: button)
+                buttonArray.append(barButton)
+            }
+        }
         
-        for (index, set) in pulseOxChartView.chartDataSets.enumerated() {
-            let button = ToggleButton(title: set.label!, color: set.colors.first!)
-            button.addTarget(pulseOxChartView, action: #selector(PulseOxChartView.toggleDataSet), for: .touchUpInside)
-            button.tag = index
-            button.isSelected = true
-            let barButton = UIBarButtonItem(customView: button)
-            buttonArray.append(barButton)
+        if deviceType == .beta {
+            for (index, set) in eegChartView.chartDataSets.enumerated() {
+                let button = ToggleButton(title: set.label!, color: set.colors.first!)
+                button.addTarget(eegChartView, action: #selector(EegChartView.toggleDataSet), for: .touchUpInside)
+                button.tag = index
+                button.isSelected = true
+                let barButton = UIBarButtonItem(customView: button)
+                buttonArray.append(barButton)
+            }
         }
         
         for (index, set) in accelChartView.chartDataSets.enumerated() {
@@ -319,7 +344,8 @@ class ChartsViewController: UIViewController, CBCentralManagerDelegate, CBPeriph
         let alert = UIAlertController(title: "File Name", message: "Please choose a name describing this recording", preferredStyle: .alert)
         
         alert.addTextField { (textField) in
-            textField.text = "Short Name"
+            textField.text = ""
+            textField.selectedTextRange = textField.textRange(from: textField.beginningOfDocument, to: textField.endOfDocument)
         }
         
         alert.addAction(UIAlertAction(title: "SAVE", style: .default, handler: { [weak alert] (_) in

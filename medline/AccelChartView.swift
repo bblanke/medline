@@ -23,7 +23,7 @@ class AccelChartView : MedlineLineChartView {
     var chartData : ChartData!
     var chartDataSets : [LineChartDataSet]!
     
-    let chartColors : [UIColor] = [.red, .green, .orange]
+    let chartColors : [UIColor] = [.pink, .yellow, .green]
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -105,5 +105,6 @@ class AccelChartView : MedlineLineChartView {
         } else {
             sender.isSelected = false
         }
+        notifyDataSetChanged()
     }
 }

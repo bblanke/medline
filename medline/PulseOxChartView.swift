@@ -26,7 +26,7 @@ class PulseOxChartView : MedlineLineChartView {
     var chartData : ChartData!
     var chartDataSets : [LineChartDataSet]!
     
-    let chartColors : [UIColor] = [.blue, .magenta, .purple, .brown]
+    let chartColors : [UIColor] = [.orange, .accent, .purple, .dark]
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -99,5 +99,6 @@ class PulseOxChartView : MedlineLineChartView {
         } else {
             sender.isSelected = false
         }
+        notifyDataSetChanged()
     }
 }

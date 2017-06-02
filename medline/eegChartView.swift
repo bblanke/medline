@@ -19,7 +19,7 @@ class EegChartView : MedlineLineChartView {
     var chartData : ChartData!
     var chartDataSets : [LineChartDataSet]!
     
-    let chartColors : [UIColor] = [.blue]
+    let chartColors : [UIColor] = [.accent]
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -76,5 +76,6 @@ class EegChartView : MedlineLineChartView {
         } else {
             sender.isSelected = false
         }
+        notifyDataSetChanged()
     }
 }
