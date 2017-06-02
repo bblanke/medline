@@ -13,7 +13,8 @@ class MasterViewController: GradientView {
 
     // MARK: - Globals
     var chartsViewController : ChartsViewController!
-    var recordsViewController : RecordsViewController!
+    var alphaRecordsViewController : AlphaRecordsViewController!
+    var betaRecordsViewController : BetaRecordsViewController!
     var devicesViewController : DevicesViewController!
     
 
@@ -34,31 +35,46 @@ class MasterViewController: GradientView {
         } else if segue.identifier == "masterChartsSegue"{
             chartsViewController = segue.destination as! ChartsViewController
             chartsViewController.chartDelegate = self
-        } else if segue.identifier == "masterRecordsSegue" {
-            recordsViewController = segue.destination as! RecordsViewController
-            recordsViewController.recordDelegate = self
+        } else if segue.identifier == "masterAlphaRecordsSegue" {
+            alphaRecordsViewController = segue.destination as! AlphaRecordsViewController
+            alphaRecordsViewController.recordDelegate = self
+        } else if segue.identifier == "masterBetaRecordsSegue" {
+            betaRecordsViewController = segue.destination as! BetaRecordsViewController
+            betaRecordsViewController.recordDelegate = self
         }
-        
     }
 }
 
 extension MasterViewController : DeviceDelegate {
     func setDeviceConnected(device: CBPeripheral) {
         chartsViewController.didSelectDevice(device: device)
-        recordsViewController.selected = nil
-        recordsViewController.tableView.reloadData()
+        alphaRecordsViewController.selected = nil
+        alphaRecordsViewController.tableView.reloadData()
+        
+        betaRecordsViewController.selected = nil
+        betaRecordsViewController.tableView.reloadData()
     }
 }
 
 extension MasterViewController : RecordDelegate {
+    func didSelectBetaReading(reading: BetaReading) {
+        chartsViewController.didSelectBetaReading(reading: reading)
+        devicesViewController.tableView.reloadData()
+        alphaRecordsViewController.selected = nil
+        alphaRecordsViewController.tableView.reloadData()
+    }
+
     func didSelectAlphaReading(reading: AlphaReading) {
         chartsViewController.didSelectAlphaReading(reading: reading)
         devicesViewController.tableView.reloadData()
+        betaRecordsViewController.selected = nil
+        betaRecordsViewController.tableView.reloadData()
     }
 }
 
 extension MasterViewController : ChartDelegate {
     func didSaveRecord() {
-        recordsViewController.loadReadings()
+        alphaRecordsViewController.loadReadings()
+        betaRecordsViewController.loadReadings()
     }
 }

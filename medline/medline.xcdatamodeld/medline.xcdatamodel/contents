@@ -16,28 +16,21 @@
         <relationship name="accelPackets" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="AlphaAccelPacket" inverseName="reading" inverseEntity="AlphaAccelPacket" syncable="YES"/>
         <relationship name="pulseOxPackets" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="AlphaPulseOxPacket" inverseName="reading" inverseEntity="AlphaPulseOxPacket" syncable="YES"/>
     </entity>
-    <entity name="BetaAccelPacket" representedClassName="BetaAccelPacket" syncable="YES" codeGenerationType="class">
-        <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
-        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="reading" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BetaReading" inverseName="accelPackets" inverseEntity="BetaReading" syncable="YES"/>
-    </entity>
     <entity name="BetaECGPacket" representedClassName="BetaECGPacket" syncable="YES" codeGenerationType="class">
         <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="reading" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BetaReading" inverseName="ecgPackets" inverseEntity="BetaReading" syncable="YES"/>
     </entity>
     <entity name="BetaReading" representedClassName="BetaReading" syncable="YES" codeGenerationType="class">
-        <attribute name="shortname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="shortName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <relationship name="accelPackets" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="BetaAccelPacket" inverseName="reading" inverseEntity="BetaAccelPacket" syncable="YES"/>
         <relationship name="ecgPackets" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="BetaECGPacket" inverseName="reading" inverseEntity="BetaECGPacket" syncable="YES"/>
     </entity>
     <elements>
-        <element name="BetaECGPacket" positionX="-216" positionY="-3" width="128" height="90"/>
-        <element name="BetaReading" positionX="-216" positionY="-144" width="128" height="105"/>
+        <element name="AlphaAccelPacket" positionX="-99" positionY="-36" width="128" height="90"/>
         <element name="AlphaPulseOxPacket" positionX="-0" positionY="27" width="128" height="90"/>
         <element name="AlphaReading" positionX="-0" positionY="-144" width="128" height="105"/>
-        <element name="AlphaAccelPacket" positionX="-99" positionY="-36" width="128" height="90"/>
-        <element name="BetaAccelPacket" positionX="-90" positionY="-27" width="128" height="90"/>
+        <element name="BetaECGPacket" positionX="-216" positionY="-3" width="128" height="90"/>
+        <element name="BetaReading" positionX="-216" positionY="-144" width="128" height="90"/>
     </elements>
 </model>

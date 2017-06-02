@@ -69,11 +69,15 @@ class DevicesViewController: UITableViewController, CBCentralManagerDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         for device in manager.retrieveConnectedPeripherals(withServices: [medlineServiceUUID]){ //disconnect all devices before we connect
-            manager.cancelPeripheralConnection(device)
+            if(device.identifier != devices[indexPath.row].identifier){
+                manager.cancelPeripheralConnection(device)
+            }
         }
-        
-        manager.connect(devices[indexPath.row], options: nil)
+        if devices[indexPath.row].state == .disconnected {
+            manager.connect(devices[indexPath.row], options: nil)
+        }
     }
+    
     
     
     // MARK: - Bluetooth

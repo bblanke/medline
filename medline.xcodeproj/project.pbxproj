@@ -12,11 +12,12 @@
 		3D2C79A71ECA672500908316 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2C79A61ECA672500908316 /* Charts.framework */; };
 		3D2C79A81ECA672500908316 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2C79A61ECA672500908316 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3D3145721EE06E2900D3E413 /* ChartDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3145711EE06E2900D3E413 /* ChartDelegate.swift */; };
-		3D6B5D6A1ED4BD6000AB6E02 /* RecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6B5D691ED4BD6000AB6E02 /* RecordsViewController.swift */; };
+		3D6B5D6A1ED4BD6000AB6E02 /* AlphaRecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6B5D691ED4BD6000AB6E02 /* AlphaRecordsViewController.swift */; };
 		3D6B5D6C1ED4CD9800AB6E02 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6B5D6B1ED4CD9800AB6E02 /* UIViewExtensions.swift */; };
 		3D6B5D6E1ED4CF4A00AB6E02 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6B5D6D1ED4CF4A00AB6E02 /* GradientView.swift */; };
 		3D6B5D711ED5BFFB00AB6E02 /* MedlineLineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6B5D701ED5BFFB00AB6E02 /* MedlineLineChartView.swift */; };
 		3D6B5D731ED5C4D600AB6E02 /* ToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6B5D721ED5C4D600AB6E02 /* ToggleButton.swift */; };
+		3D83D1F21EE1E9DB00D9F957 /* BetaRecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D83D1F11EE1E9DB00D9F957 /* BetaRecordsViewController.swift */; };
 		3D8E47D21ECA453700F8415F /* DeviceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8E47D11ECA453700F8415F /* DeviceDelegate.swift */; };
 		3D9200091EE1BFD10004953F /* eegChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9200081EE1BFD10004953F /* eegChartView.swift */; };
 		3DD993D91ED73FD400FFB93F /* RecordDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD993D81ED73FD400FFB93F /* RecordDelegate.swift */; };
@@ -53,11 +54,12 @@
 		3D1867581ECA3CA600437C10 /* ChartsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartsViewController.swift; sourceTree = "<group>"; };
 		3D2C79A61ECA672500908316 /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Charts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D3145711EE06E2900D3E413 /* ChartDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartDelegate.swift; sourceTree = "<group>"; };
-		3D6B5D691ED4BD6000AB6E02 /* RecordsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordsViewController.swift; sourceTree = "<group>"; };
+		3D6B5D691ED4BD6000AB6E02 /* AlphaRecordsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlphaRecordsViewController.swift; sourceTree = "<group>"; };
 		3D6B5D6B1ED4CD9800AB6E02 /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		3D6B5D6D1ED4CF4A00AB6E02 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		3D6B5D701ED5BFFB00AB6E02 /* MedlineLineChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedlineLineChartView.swift; sourceTree = "<group>"; };
 		3D6B5D721ED5C4D600AB6E02 /* ToggleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToggleButton.swift; sourceTree = "<group>"; };
+		3D83D1F11EE1E9DB00D9F957 /* BetaRecordsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetaRecordsViewController.swift; sourceTree = "<group>"; };
 		3D8E47D11ECA453700F8415F /* DeviceDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceDelegate.swift; sourceTree = "<group>"; };
 		3D9200081EE1BFD10004953F /* eegChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = eegChartView.swift; sourceTree = "<group>"; };
 		3DD993D81ED73FD400FFB93F /* RecordDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordDelegate.swift; sourceTree = "<group>"; };
@@ -103,7 +105,8 @@
 			isa = PBXGroup;
 			children = (
 				3DD993D81ED73FD400FFB93F /* RecordDelegate.swift */,
-				3D6B5D691ED4BD6000AB6E02 /* RecordsViewController.swift */,
+				3D6B5D691ED4BD6000AB6E02 /* AlphaRecordsViewController.swift */,
+				3D83D1F11EE1E9DB00D9F957 /* BetaRecordsViewController.swift */,
 			);
 			name = Records;
 			sourceTree = "<group>";
@@ -285,8 +288,9 @@
 				3D3145721EE06E2900D3E413 /* ChartDelegate.swift in Sources */,
 				3D1867571ECA3B6800437C10 /* UIColors.swift in Sources */,
 				3DD993DB1ED7435D00FFB93F /* PulseOxChartView.swift in Sources */,
+				3D83D1F21EE1E9DB00D9F957 /* BetaRecordsViewController.swift in Sources */,
 				3D6B5D6C1ED4CD9800AB6E02 /* UIViewExtensions.swift in Sources */,
-				3D6B5D6A1ED4BD6000AB6E02 /* RecordsViewController.swift in Sources */,
+				3D6B5D6A1ED4BD6000AB6E02 /* AlphaRecordsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

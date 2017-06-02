@@ -92,25 +92,27 @@ class ChartsViewController: UIViewController, CBCentralManagerDelegate, CBPeriph
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         print("[DEBUG]: Discovered peripheral characteristics")
-        for characteristic in service.characteristics! {
-            if characteristic.uuid == enableCharacteristicUUID {
-                print("[DEBUG]: Enabling Data Streaming")
-                peripheral.writeValue(enableByte, for: characteristic, type: .withResponse)
-            } else if characteristic.uuid == alphaPulseOxCharacteristicUUID || characteristic.uuid == alphaBattAccelCharacteristicUUID {
-                print("[DEBUG]: Subscribing to Data Stream for characteristic \(characteristic.uuid.uuidString) notify \(characteristic.properties.contains(.notify))")
-                peripheral.setNotifyValue(true, for: characteristic)
-            } else if characteristic.uuid == betaEegCharacteristicUUID {
-                if characteristic.properties.contains(.notify) {
+        if let characteristics = service.characteristics {
+            for characteristic in characteristics {
+                if characteristic.uuid == enableCharacteristicUUID {
+                    print("[DEBUG]: Enabling Data Streaming")
+                    peripheral.writeValue(enableByte, for: characteristic, type: .withResponse)
+                } else if characteristic.uuid == alphaPulseOxCharacteristicUUID || characteristic.uuid == alphaBattAccelCharacteristicUUID {
+                    print("[DEBUG]: Subscribing to Data Stream for characteristic \(characteristic.uuid.uuidString) notify \(characteristic.properties.contains(.notify))")
                     peripheral.setNotifyValue(true, for: characteristic)
-                    deviceType = .beta
-                    pulseOxChartView.isHidden = true
-                    eegChartView.isHidden = false
-                } else {
-                    deviceType = .alpha
-                    eegChartView.isHidden = true
-                    pulseOxChartView.isHidden = false
+                } else if characteristic.uuid == betaEegCharacteristicUUID {
+                    if characteristic.properties.contains(.notify) {
+                        peripheral.setNotifyValue(true, for: characteristic)
+                        deviceType = .beta
+                        pulseOxChartView.isHidden = true
+                        eegChartView.isHidden = false
+                    } else {
+                        deviceType = .alpha
+                        eegChartView.isHidden = true
+                        pulseOxChartView.isHidden = false
+                    }
+                    print("[DEBUG]: Subscribing to Data Stream for characteristic \(characteristic.uuid.uuidString) notify \(characteristic.properties.contains(.notify))")
                 }
-                print("[DEBUG]: Subscribing to Data Stream for characteristic \(characteristic.uuid.uuidString) notify \(characteristic.properties.contains(.notify))")
             }
         }
     }
@@ -132,7 +134,8 @@ class ChartsViewController: UIViewController, CBCentralManagerDelegate, CBPeriph
             eegChartView.addToGraph(packet: characteristic.value!, date: Date(), range: 200)
             accelChartView.betaAddToGraph(packet: characteristic.value!, date: Date(), range: (200))
             if isRecording {
-                tempAccelPackets.append(characteristic.value!)
+                tempPayloadPackets.append(characteristic.value!)
+                tempPayloadPacketTimestamps.append(Date())
             }
         }
     }
@@ -201,6 +204,43 @@ class ChartsViewController: UIViewController, CBCentralManagerDelegate, CBPeriph
             let data = packet.data! as Data
             accelChartView.alphaAddToGraph(packet: data, date: packet.timestamp! as Date, range: nil)
         }
+        
+        pulseOxChartView.isHidden = false
+        eegChartView.isHidden = true
+    }
+    
+    func didSelectBetaReading(reading: BetaReading){
+        switch chartState {
+        case .disabled:
+            blurView.fadeOut() //remove blur view
+            break
+        case .bluetoothGraphing:
+            manager.cancelPeripheralConnection(connectedPeripheral) //disconnect from a peripheral if connected
+            break
+        default:
+            break
+        }
+        
+        chartState = .fileGraphing
+        
+        eegChartView.xAxis.resetCustomAxisMin()
+        pulseOxChartView.xAxis.resetCustomAxisMin()
+        accelChartView.xAxis.resetCustomAxisMin()
+        
+        eegChartView.initChart()
+        pulseOxChartView.initChart()
+        accelChartView.initChart()
+        
+        
+        let payloadPackets = Array(reading.ecgPackets!) as! [BetaECGPacket]
+        for packet in payloadPackets {
+            let data = packet.data! as Data
+            eegChartView.addToGraph(packet: data, date: packet.timestamp! as Date, range: nil)
+            accelChartView.betaAddToGraph(packet: data, date: packet.timestamp! as Date, range: nil)
+        }
+        
+        pulseOxChartView.isHidden = true
+        eegChartView.isHidden = false
     }
     
     // MARK: - Graph Actions
@@ -260,6 +300,7 @@ class ChartsViewController: UIViewController, CBCentralManagerDelegate, CBPeriph
                 persistAlphaReading()
                 break
             case .beta:
+                persistBetaReading()
                 break
             }
         }
@@ -268,6 +309,7 @@ class ChartsViewController: UIViewController, CBCentralManagerDelegate, CBPeriph
     // MARK: - Persistence
     
     func persistAlphaReading(){
+        print("persisting alpha")
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let alphaReading = AlphaReading(context: context)
         
@@ -307,10 +349,6 @@ class ChartsViewController: UIViewController, CBCentralManagerDelegate, CBPeriph
             self.tempAccelPackets = []
             self.tempAccelPacketTimestamps = []
             
-            for packet in Array(alphaReading.accelPackets!) as! [AlphaAccelPacket]{
-                print("added accel: \(packet.timestamp!.timeIntervalSince1970)")
-            }
-            
             (UIApplication.shared.delegate as! AppDelegate).saveContext()
             
             self.pulseOxChartView.holding = false
@@ -320,15 +358,44 @@ class ChartsViewController: UIViewController, CBCentralManagerDelegate, CBPeriph
         
         self.present(alert, animated: true, completion: nil)
     }
-    
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func persistBetaReading(){
+        print("persisting beta")
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let betaReading = BetaReading(context: context)
+        
+        eegChartView.holding = true
+        accelChartView.holding = true
+        
+        let alert = UIAlertController(title: "File Name", message: "Please choose a name describing this recording", preferredStyle: .alert)
+        
+        alert.addTextField { (textField) in
+            textField.text = "Short Name"
+        }
+        
+        alert.addAction(UIAlertAction(title: "SAVE", style: .default, handler: { [weak alert] (_) in
+            let textField = alert?.textFields![0]
+            
+            betaReading.shortName = textField?.text
+            betaReading.timestamp = Date() as NSDate
+            
+            for (index, data) in self.tempPayloadPackets.enumerated() {
+                let packet = BetaECGPacket(context: context)
+                packet.data = data as NSData
+                packet.timestamp = self.tempPayloadPacketTimestamps[index] as NSDate
+                betaReading.addToEcgPackets(packet)
+            }
+            
+            self.tempPayloadPackets = []
+            self.tempPayloadPacketTimestamps = []
+            
+            (UIApplication.shared.delegate as! AppDelegate).saveContext()
+            
+            self.eegChartView.holding = false
+            self.accelChartView.holding = false
+            self.chartDelegate.didSaveRecord()
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
     }
-    */
-
 }

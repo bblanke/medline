@@ -11,4 +11,5 @@ import CoreData
 
 protocol RecordDelegate: class {
     func didSelectAlphaReading(reading : AlphaReading)
+    func didSelectBetaReading(reading: BetaReading)
 }
