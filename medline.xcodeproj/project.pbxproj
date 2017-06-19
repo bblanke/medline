@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		3D1867571ECA3B6800437C10 /* UIColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1867561ECA3B6800437C10 /* UIColors.swift */; };
 		3D1867591ECA3CA600437C10 /* ChartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1867581ECA3CA600437C10 /* ChartsViewController.swift */; };
-		3D2C79A71ECA672500908316 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2C79A61ECA672500908316 /* Charts.framework */; };
-		3D2C79A81ECA672500908316 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3D2C79A61ECA672500908316 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3D3145721EE06E2900D3E413 /* ChartDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3145711EE06E2900D3E413 /* ChartDelegate.swift */; };
+		3D4549C21EF56536003A3650 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4549C11EF56536003A3650 /* Charts.framework */; };
+		3D4549C31EF56536003A3650 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3D4549C11EF56536003A3650 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3D6B5D6A1ED4BD6000AB6E02 /* AlphaRecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6B5D691ED4BD6000AB6E02 /* AlphaRecordsViewController.swift */; };
 		3D6B5D6C1ED4CD9800AB6E02 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6B5D6B1ED4CD9800AB6E02 /* UIViewExtensions.swift */; };
 		3D6B5D6E1ED4CF4A00AB6E02 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6B5D6D1ED4CF4A00AB6E02 /* GradientView.swift */; };
@@ -42,7 +42,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3D2C79A81ECA672500908316 /* Charts.framework in Embed Frameworks */,
+				3D4549C31EF56536003A3650 /* Charts.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -52,8 +52,8 @@
 /* Begin PBXFileReference section */
 		3D1867561ECA3B6800437C10 /* UIColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColors.swift; sourceTree = "<group>"; };
 		3D1867581ECA3CA600437C10 /* ChartsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartsViewController.swift; sourceTree = "<group>"; };
-		3D2C79A61ECA672500908316 /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Charts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D3145711EE06E2900D3E413 /* ChartDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartDelegate.swift; sourceTree = "<group>"; };
+		3D4549C11EF56536003A3650 /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Charts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D6B5D691ED4BD6000AB6E02 /* AlphaRecordsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlphaRecordsViewController.swift; sourceTree = "<group>"; };
 		3D6B5D6B1ED4CD9800AB6E02 /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		3D6B5D6D1ED4CF4A00AB6E02 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
@@ -85,7 +85,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DE91D611ECA34DF0062E48D /* CoreBluetooth.framework in Frameworks */,
-				3D2C79A71ECA672500908316 /* Charts.framework in Frameworks */,
+				3D4549C21EF56536003A3650 /* Charts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,7 +128,7 @@
 		3DE91D2C1ECA1ED70062E48D = {
 			isa = PBXGroup;
 			children = (
-				3D2C79A61ECA672500908316 /* Charts.framework */,
+				3D4549C11EF56536003A3650 /* Charts.framework */,
 				3DE91D371ECA1ED70062E48D /* medline */,
 				3DE91D361ECA1ED70062E48D /* Products */,
 				3DE91D5F1ECA34DF0062E48D /* Frameworks */,
@@ -417,7 +417,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = BDN6EHM4RZ;
 				INFOPLIST_FILE = medline/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.baileyb.medline;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -431,7 +431,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = BDN6EHM4RZ;
 				INFOPLIST_FILE = medline/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.baileyb.medline;
 				PRODUCT_NAME = "$(TARGET_NAME)";

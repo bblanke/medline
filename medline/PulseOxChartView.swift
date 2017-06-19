@@ -57,10 +57,10 @@ class PulseOxChartView : MedlineLineChartView {
     func addToGraph(packet: Data, date: Date, range: Int?){
         let timestamp = date.timeIntervalSince1970
         
-        let waveOne = (Int(packet[12]) << 8) + (Int(packet[13]))
-        let waveTwo = (Int(packet[14]) << 8) + (Int(packet[15]))
-        let waveThree = (Int(packet[16]) << 8) + (Int(packet[17]))
-        let skinTemp = (Int(packet[18]) << 8) + (Int(packet[19]))
+        let waveOne = (Int(packet[13]) << 8) + (Int(packet[12]))
+        let waveTwo = (Int(packet[15]) << 8) + (Int(packet[14]))
+        let waveThree = (Int(packet[17]) << 8) + (Int(packet[16]))
+        let skinTemp = (Int(packet[19]) << 8) + (Int(packet[18]))
         
         let waveOneEntry = ChartDataEntry(x: timestamp, y: Double(waveOne))
         let waveTwoEntry = ChartDataEntry(x: timestamp, y: Double(waveTwo))

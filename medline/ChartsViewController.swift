@@ -42,8 +42,8 @@ class ChartsViewController: UIViewController, CBCentralManagerDelegate, CBPeriph
     @IBOutlet weak var blurView: UIVisualEffectView!
     
     // Charts
-    let topChartSize = 200
-    let bottomChartSize = 22 //should be topChartSize/9
+    let topChartSize = 400
+    let bottomChartRatio = 9
     
     // Chart State
     var isRecording = false
@@ -120,20 +120,20 @@ class ChartsViewController: UIViewController, CBCentralManagerDelegate, CBPeriph
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         if characteristic.uuid == alphaPulseOxCharacteristicUUID {
-            pulseOxChartView.addToGraph(packet: characteristic.value!, date: Date(), range: 200)
+            pulseOxChartView.addToGraph(packet: characteristic.value!, date: Date(), range: topChartSize)
             if isRecording {
                 tempPayloadPackets.append(characteristic.value!)
                 tempPayloadPacketTimestamps.append(Date())
             }
         } else if characteristic.uuid == alphaBattAccelCharacteristicUUID {
-            accelChartView.alphaAddToGraph(packet: characteristic.value!, date: Date(), range: (200/9))
+            accelChartView.alphaAddToGraph(packet: characteristic.value!, date: Date(), range: (topChartSize/bottomChartRatio))
             if isRecording {
                 tempAccelPackets.append(characteristic.value!)
                 tempAccelPacketTimestamps.append(Date())
             }
         } else if characteristic.uuid == betaEegCharacteristicUUID {
-            eegChartView.addToGraph(packet: characteristic.value!, date: Date(), range: 200)
-            accelChartView.betaAddToGraph(packet: characteristic.value!, date: Date(), range: (200))
+            eegChartView.addToGraph(packet: characteristic.value!, date: Date(), range: topChartSize)
+            accelChartView.betaAddToGraph(packet: characteristic.value!, date: Date(), range: topChartSize)
             if isRecording {
                 tempPayloadPackets.append(characteristic.value!)
                 tempPayloadPacketTimestamps.append(Date())

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="exv-ld-kLs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="exv-ld-kLs">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
@@ -35,25 +35,25 @@
                                 </connections>
                             </containerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DEVICES" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ki-K8-4Cm">
-                                <rect key="frame" x="20" y="28" width="75" height="21"/>
+                                <rect key="frame" x="20" y="28" width="68.5" height="25"/>
                                 <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="18"/>
                                 <color key="textColor" red="0.9882352941176471" green="1" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PULSE OX RECORDS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZaD-wq-kFW">
-                                <rect key="frame" x="20" y="270.5" width="179" height="21"/>
+                                <rect key="frame" x="20" y="270.5" width="163.5" height="25"/>
                                 <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="18"/>
                                 <color key="textColor" red="0.9882352941176471" green="1" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ECG RECORDS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xvn-W8-TcM">
-                                <rect key="frame" x="20" y="513" width="129.5" height="21"/>
+                                <rect key="frame" x="20" y="513" width="117" height="25"/>
                                 <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="18"/>
                                 <color key="textColor" red="0.98823529409999999" green="1" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3EC-Ye-qen" userLabel="DevicesList">
-                                <rect key="frame" x="20" y="57" width="200" height="206"/>
+                                <rect key="frame" x="20" y="61" width="200" height="202"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="loB-Nw-WZG"/>
                                 </constraints>
@@ -62,7 +62,7 @@
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YbS-Js-6Vp" userLabel="BetaRecords">
-                                <rect key="frame" x="20" y="542" width="200" height="206"/>
+                                <rect key="frame" x="20" y="546" width="200" height="202"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="5nB-qZ-Q5T"/>
                                 </constraints>
@@ -71,7 +71,7 @@
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DWS-W5-ahv" userLabel="AlphaRecords">
-                                <rect key="frame" x="20" y="300" width="200" height="205.5"/>
+                                <rect key="frame" x="20" y="304" width="200" height="201.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="Mdo-AP-ua0"/>
                                 </constraints>
@@ -168,11 +168,6 @@
                             <constraint firstItem="VCC-fX-HuL" firstAttribute="top" secondItem="YyN-SI-lS6" secondAttribute="bottom" id="uUk-8R-SCZ"/>
                             <constraint firstItem="npP-Kq-tVt" firstAttribute="top" secondItem="Z4q-Kl-Bqe" secondAttribute="bottom" constant="8" id="vS8-wD-N1K"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="VCC-fX-HuL"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
                         <outlet property="accelChartView" destination="Z4q-Kl-Bqe" id="mrh-MQ-jww"/>
@@ -191,7 +186,7 @@
             <objects>
                 <tableViewController id="YjY-du-NS1" customClass="DevicesViewController" customModule="medline" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="UXC-Xs-kL2">
-                        <rect key="frame" x="0.0" y="0.0" width="200" height="206"/>
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="202"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -232,7 +227,7 @@
             <objects>
                 <tableViewController id="Ghw-CS-ycX" customClass="AlphaRecordsViewController" customModule="medline" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="vHr-yY-4zm">
-                        <rect key="frame" x="0.0" y="0.0" width="200" height="205.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="201.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -276,7 +271,7 @@
             <objects>
                 <tableViewController id="6kx-1M-dVK" customClass="BetaRecordsViewController" customModule="medline" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="CFb-i6-fEz">
-                        <rect key="frame" x="0.0" y="0.0" width="200" height="206"/>
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="202"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <prototypes>

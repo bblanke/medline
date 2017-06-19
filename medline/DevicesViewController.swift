@@ -73,6 +73,7 @@ class DevicesViewController: UITableViewController, CBCentralManagerDelegate {
                 manager.cancelPeripheralConnection(device)
             }
         }
+        
         if devices[indexPath.row].state == .disconnected {
             manager.connect(devices[indexPath.row], options: nil)
         }
